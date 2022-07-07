@@ -2,18 +2,22 @@ local theme = {}
 
 theme.border_width = 1
 
-theme.black = "#1e1e28"
-theme.deep_black = "#1b1923"
-theme.white = "#d7dae0"
-theme.light_white = "#fafafa"
-theme.pink = "#f0afe1"
-theme.red = "#e28c8c"
-theme.orange = "#f9c096"
-theme.yellow = "#eadda0"
-theme.green = "#b3e1a3"
-theme.blue = "#a4b9ef"
-theme.purple = "#c6aae8"
-theme.grey = "#6e6c7c"
+theme.light_white =   "#fafafa"
+theme.white =         "#d7dae0"
+theme.pink =          "#f4b8e4"
+theme.purple =        "#ca9ee6"
+theme.red =           "#e78284"
+theme.orange =        "#ef9f76"
+theme.yellow =        "#e5c890"
+theme.green =         "#a6d189"
+theme.light_blue =    "#99d1db"
+theme.blue =          "#a4b9ef"
+theme.text =          "#c6d0f5"
+theme.grey =          "#949cbb"
+theme.dark_grey =     "#737994"
+theme.black =         "#303446"
+theme.deep_black =    "#232634"
+
 
 theme.bg_normal = theme.black
 theme.bg_focus = theme.deep_black
