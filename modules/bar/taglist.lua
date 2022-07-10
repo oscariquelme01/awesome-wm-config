@@ -73,31 +73,71 @@ return function(s)
         },
         widget_template = {
             {
-                { -- taglist number background
-                    {
-                        { -- taglist number
-                            id = 'index_role',
-                            widget = wibox.widget.textbox
+                {
+                    { -- taglist number background
+                        { -- margin
+                            { -- taglist number
+                                id = 'text_role',
+                                widget = wibox.widget.textbox
+                            },
+                            margins = 4,
+                            widget = wibox.container.margin
                         },
-                        margins = 4,
-                        widget = wibox.container.margin
+                        -- bg = beautiful.grey,
+                        -- id = 'circle_role',
+                        -- shape = gears.shape.circle,
+                        widget = wibox.container.background
                     },
-                    bg = beautiful.grey,
-                    id = 'circle_role',
-                    shape = gears.shape.circle,
-                    widget = wibox.container.background
+                    {
+                        id = 'index_role',
+                        widget = wibox.widget.textbox
+                    },
+                    layout = wibox.layout.fixed.horizontal
                 },
                 left = 10,
                 right = 10,
                 widget = wibox.container.margin
             },
             id = 'background_role',
-            widget = wibox.container.margin,
-            shape = gears.shape.rounded_rect,
+            widget = wibox.container.background,
+            -- shape = gears.shape.rounded_rect,
             create_callback = create_callback,
-            update_callback = update_callback,
-            buttons = taglist_buttons
-        }
+            -- update_callback = update_callback,
+        },
+        buttons = taglist_buttons
+        -- widget_template = {
+        --     {
+        --         { -- main container with some margin on the sides (?)
+        --             { -- background
+        --                 { -- margin but is set to 0 so shouldn't matter (?)
+        --                     { -- text
+        --                         id = 'text_role',
+        --                         widget = wibox.widget.textbox,
+        --                     },
+        --                     margins = 0,
+        --                     widget = wibox.container.margin,
+        --                 },
+        --                 widget = wibox.container.background,
+        --             },
+        --             {
+        --                 id     = 'index_role',
+        --                 widget = wibox.widget.textbox,
+        --             },
+        --             layout = wibox.layout.fixed.horizontal,
+        --         },
+        --         left  = 7,
+        --         right = 7,
+        --         widget = wibox.container.margin
+        --     },
+        --     id = 'background_role',
+        --     widget = wibox.container.background,
+
+        --     -- Add support for hover colors and an index label. I guess this is the callback stablishing all signals but i don't think it works cause i deleted bling
+        --     create_callback = create_callback
+        --     -- update_callback = function(self, c3, index, objects)
+        --     -- end,
+        -- },
+        -- buttons = taglist_buttons
     })
 
     return taglist

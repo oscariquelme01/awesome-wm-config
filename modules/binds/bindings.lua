@@ -10,6 +10,8 @@ globalkeys = gears.table.join(
     awful.key({ modkey, }, "z", hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
 
+    awful.key({modkey, "Shift"}, "z", function() local file = io.open("debugggg.txt", "a"); file:close() end, {description = "debug", group="awesome"}),
+
     -- focus previous/next tag
     awful.key({ modkey, }, "Left", awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
@@ -27,6 +29,14 @@ globalkeys = gears.table.join(
     awful.key({ modkey, }, "k", function () awful.client.focus.byidx(-1) end,
         {description = "focus previous by index", group = "client"}
     ),
+    awful.key({ modkey, }, "Tab",
+        function ()
+            awful.client.focus.history.previous()
+            if client.focus then
+                client.focus:raise()
+            end
+        end,
+        {description = "go back", group = "client"}),
 
     -- Open terminal
     awful.key({ modkey, }, "Return", function () awful.spawn(terminal) end,
