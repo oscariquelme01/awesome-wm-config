@@ -27,11 +27,11 @@ return function(s)
 
         -- switch circle color depending on the tag situation
         if tag.selected then
-            self:get_children_by_id('circle_role').bg = beautiful.light_blue
+            self:get_children_by_id('background_role')[1].fg = beautiful.pink
         elseif #tag:clients() == 0 then
-            self:get_children_by_id('circle_role').bg = beautiful.grey
+            self:get_children_by_id('background_role')[1].fg = beautiful.dark_grey
         else
-            self:get_children_by_id('circle_role').bg = beautiful.pink
+            self:get_children_by_id('background_role')[1].fg = beautiful.light_blue
         end
 
         --- Tag preview
@@ -52,14 +52,17 @@ return function(s)
 
         -- switch circle color depending on the tag situation
         if tag.selected then
-            self:get_children_by_id('circle_role').bg = beautiful.light_blue
+            self:get_children_by_id('background_role')[1].fg = beautiful.pink
         elseif #tag:clients() == 0 then
-            self:get_children_by_id('circle_role').bg = beautiful.grey
+            self:get_children_by_id('background_role')[1].fg = beautiful.dark_grey
         else
-            self:get_children_by_id('circle_role').bg = beautiful.pink
+            self:get_children_by_id('background_role')[1].fg = beautiful.light_blue
         end
 
     end
+
+     -- Setup tags and default layout
+     awful.tag({"ﱤ", "ﱤ", "ﱤ", "ﱤ", "ﱤ", "ﱤ", "ﱤ"}, s, awful.layout.suit.tile)
 
     local taglist = awful.widget.taglist({
         screen = s,
@@ -80,12 +83,10 @@ return function(s)
                                 id = 'text_role',
                                 widget = wibox.widget.textbox
                             },
-                            margins = 4,
+                            margins = 7,
                             widget = wibox.container.margin
                         },
-                        -- bg = beautiful.grey,
-                        -- id = 'circle_role',
-                        -- shape = gears.shape.circle,
+                        id = 'background_role',
                         widget = wibox.container.background
                     },
                     {
@@ -94,50 +95,17 @@ return function(s)
                     },
                     layout = wibox.layout.fixed.horizontal
                 },
-                left = 10,
-                right = 10,
+                right = 4, left = 4,
+                top = 8, bottom = 8,
                 widget = wibox.container.margin
             },
-            id = 'background_role',
+            -- id = 'background_role',
             widget = wibox.container.background,
-            -- shape = gears.shape.rounded_rect,
+            shape = gears.shape.rounded_rect,
             create_callback = create_callback,
-            -- update_callback = update_callback,
+            update_callback = update_callback,
         },
         buttons = taglist_buttons
-        -- widget_template = {
-        --     {
-        --         { -- main container with some margin on the sides (?)
-        --             { -- background
-        --                 { -- margin but is set to 0 so shouldn't matter (?)
-        --                     { -- text
-        --                         id = 'text_role',
-        --                         widget = wibox.widget.textbox,
-        --                     },
-        --                     margins = 0,
-        --                     widget = wibox.container.margin,
-        --                 },
-        --                 widget = wibox.container.background,
-        --             },
-        --             {
-        --                 id     = 'index_role',
-        --                 widget = wibox.widget.textbox,
-        --             },
-        --             layout = wibox.layout.fixed.horizontal,
-        --         },
-        --         left  = 7,
-        --         right = 7,
-        --         widget = wibox.container.margin
-        --     },
-        --     id = 'background_role',
-        --     widget = wibox.container.background,
-
-        --     -- Add support for hover colors and an index label. I guess this is the callback stablishing all signals but i don't think it works cause i deleted bling
-        --     create_callback = create_callback
-        --     -- update_callback = function(self, c3, index, objects)
-        --     -- end,
-        -- },
-        -- buttons = taglist_buttons
     })
 
     return taglist

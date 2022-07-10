@@ -1,5 +1,3 @@
- -- local beautiful = require("beautiful")
- -- local gears = require("gears")
  local wibox = require("wibox")
  local awful = require("awful")
 
@@ -10,8 +8,6 @@
      function(s)
          s.taglist = taglist(s)
 
-         -- Setup tags and default layout
-         awful.tag({"1", "2", "3", "4", "5","6","7"}, s, awful.layout.suit.tile)
 
          -- wibar
          s.wibar = awful.wibar({position = "top", screen = s, stretch = true})
