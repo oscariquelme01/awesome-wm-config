@@ -3,6 +3,8 @@ local beautiful = require("beautiful")
 local wibox = require("wibox")
 local gears = require("gears")
 
+require("modules.bling")
+
 return function(s)
 
     -- buttons to enable mouse navigation
@@ -23,16 +25,26 @@ return function(s)
         awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
     )
 
-    local function create_callback(self, tag, _, _)
+    local function update_callback(self, tag, _, _)
 
-        -- switch circle color depending on the tag situation
+        -- switch circle depending on the tag situation
         if tag.selected then
             self:get_children_by_id('background_role')[1].fg = beautiful.pink
+            tag.name = 'ﱣ'
         elseif #tag:clients() == 0 then
             self:get_children_by_id('background_role')[1].fg = beautiful.dark_grey
+            tag.name = 'ﱤ'
         else
             self:get_children_by_id('background_role')[1].fg = beautiful.light_blue
+            tag.name = 'ﱣ'
         end
+
+    end
+
+    local function create_callback(self, tag, _, _)
+
+        -- initial update
+        update_callback(self, tag, _, _)
 
         --- Tag preview
         self:connect_signal("mouse::enter", function()
@@ -48,18 +60,6 @@ return function(s)
 
     end
 
-    local function update_callback(self, tag, _, _)
-
-        -- switch circle color depending on the tag situation
-        if tag.selected then
-            self:get_children_by_id('background_role')[1].fg = beautiful.pink
-        elseif #tag:clients() == 0 then
-            self:get_children_by_id('background_role')[1].fg = beautiful.dark_grey
-        else
-            self:get_children_by_id('background_role')[1].fg = beautiful.light_blue
-        end
-
-    end
 
      -- Setup tags and default layout
      awful.tag({"ﱤ", "ﱤ", "ﱤ", "ﱤ", "ﱤ", "ﱤ", "ﱤ"}, s, awful.layout.suit.tile)
@@ -99,7 +99,7 @@ return function(s)
                 top = 8, bottom = 8,
                 widget = wibox.container.margin
             },
-            -- id = 'background_role',
+            id = 'background_role',
             widget = wibox.container.background,
             shape = gears.shape.rounded_rect,
             create_callback = create_callback,
