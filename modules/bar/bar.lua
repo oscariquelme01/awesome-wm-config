@@ -2,11 +2,13 @@
  local awful = require("awful")
 
  local taglist = require("modules.bar.taglist")
+ local clock = require("modules.bar.clock")
 
 
  awful.screen.connect_for_each_screen(
      function(s)
          s.taglist = taglist(s)
+         s.clock = clock()
 
 
          -- wibar
@@ -23,6 +25,7 @@
                  expand = "none"
              },
              { -- Right widgets
+                wibox.layout.margin(s.clock, 10, 10, 10, 10),
                 layout = wibox.layout.fixed.horizontal,
              }
          }
