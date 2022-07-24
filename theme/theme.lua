@@ -31,7 +31,7 @@ theme.deep_black    = "#232634"
 -- theme.fg_minimize = theme.light_white
 
 theme.border_width = 1
-theme.border_normal = theme.dark_grey
+theme.border_normal = theme.black
 
 -- Wibar
 theme.wibar_height = 40

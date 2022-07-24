@@ -16,16 +16,16 @@
 
          s.wibar:setup {
              layout = wibox.layout.align.horizontal,
+             expand = "outside",
              { -- Left widgets
+                s.taglist,
                 layout = wibox.layout.fixed.horizontal,
              },
-             {
-                 s.taglist, -- Middle widgets
+             { -- Middle widgets
                  layout = wibox.layout.fixed.horizontal,
-                 expand = "none"
+                 wibox.layout.margin(s.clock, 10, 10, 10, 10),
              },
              { -- Right widgets
-                wibox.layout.margin(s.clock, 10, 10, 10, 10),
                 layout = wibox.layout.fixed.horizontal,
              }
          }
