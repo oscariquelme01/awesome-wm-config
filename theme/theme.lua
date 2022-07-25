@@ -1,6 +1,8 @@
 local theme = {}
 
-theme.font = "Sarasa Mono K bold 13"
+theme.font = "sarasa mono k bold 13"
+theme.font_large = "sarasa mono k bold 16"
+theme.font_extra_large = "sarasa mono k bold 20"
 
 theme.light_white   = "#fafafa"
 theme.white         = "#d7dae0"
@@ -15,6 +17,7 @@ theme.blue          = "#a4b9ef"
 theme.text          = "#c6d0f5"
 theme.grey          = "#949cbb"
 theme.dark_grey     = "#737994"
+theme.darker_grey   = "#494d64"
 theme.black         = "#303446"
 theme.deep_black    = "#232634"
 
@@ -38,6 +41,8 @@ theme.wibar_height = 40
 theme.wibar_stretch = true
 theme.wibar_bg = theme.black
 theme.wibar_fg = theme.text
+theme.wibar_border_width = 1
+theme.wibar_border_color = theme.darker_grey
 
 
 theme.taglist_font = theme.font
