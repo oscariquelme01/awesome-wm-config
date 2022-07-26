@@ -3,9 +3,13 @@ local beautiful = require("beautiful")
 local wibox = require("wibox")
 local gears = require("gears")
 
+local cpu_widget = require("modules.widgets.cpu")
+
 local dpi = beautiful.xresources.apply_dpi
 
 return function(s)
+
+    local cpu = cpu_widget()
 
     -- popup with all the info
     local popup = awful.popup {
@@ -25,7 +29,8 @@ return function(s)
 				{
 					layout = wibox.layout.align.vertical,
 					expand = "none",
-					wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
+					-- wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
+                    cpu,
 					wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
 					wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
 				},
