@@ -4,12 +4,14 @@ local wibox = require("wibox")
 local gears = require("gears")
 
 local cpu_widget = require("modules.widgets.cpu")
+local ram_widget = require("modules.widgets.ram")
 
 local dpi = beautiful.xresources.apply_dpi
 
 return function(s)
 
     local cpu = cpu_widget()
+    local ram = ram_widget()
 
     -- popup with all the info
     local popup = awful.popup {
@@ -31,7 +33,8 @@ return function(s)
 					expand = "none",
 					-- wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
                     cpu,
-					wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
+                    ram,
+					-- wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
 					wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
 				},
                 margins = dpi(16),
