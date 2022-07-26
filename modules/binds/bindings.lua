@@ -82,7 +82,14 @@ globalkeys = gears.table.join(
 
     -- switch between screens
     awful.key({ modkey, }, "s", function () awful.screen.focus_relative(1) end,
-              {description = "focus the next screen", group = "screen"})
+              {description = "focus the next screen", group = "screen"}),
+
+    -- toggle information pannel
+    awful.key({ modkey }, "i",
+        function ()
+            local screen = awful.screen.focused()
+            screen.info.toggle() end,
+        {description = "toggle information pannel", group = "screen"})
 )
 
 -- for loop for everytag list
