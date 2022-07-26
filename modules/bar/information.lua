@@ -30,12 +30,14 @@ return function(s)
 			{
 				{
 					layout = wibox.layout.align.vertical,
-					expand = "none",
-					-- wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
+                    expand = "none",
+
+                    wibox.widget{ markup = '<span foreground="' .. beautiful.red .. '"> Hardware: </span>',
+                    align  = 'center', valign = 'center',
+                    widget = wibox.widget.textbox },
+
                     cpu,
                     ram,
-					-- wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
-					wibox.widget{ markup = 'This <i>is</i> a <b>textbox</b>!!!', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
 				},
                 margins = dpi(16),
 				widget = wibox.container.margin,

@@ -71,7 +71,7 @@ return function ()
         layout = wibox.layout.align.horizontal,
         expand = 'inside',
 		{
-            wibox.widget{ markup = '<span foreground= "' .. beautiful.red ..  '">Cpu:</span>', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
+            wibox.widget{ markup = '<span foreground= "' .. beautiful.orange ..  '">Cpu:</span>', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
             right = dpi(8),
             widget = wibox.container.margin
         },

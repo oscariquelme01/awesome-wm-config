@@ -27,7 +27,7 @@ return function ()
         layout = wibox.layout.align.horizontal,
         expand = 'inside',
         wibox.widget{
-            markup = '<span foreground= "' .. beautiful.orange ..  '">Ram:</span>', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
+            markup = '<span foreground= "' .. beautiful.yellow ..  '">Ram:</span>', align  = 'center', valign = 'center', widget = wibox.widget.textbox },
             {
                 {
                     ramtext_widget,
@@ -36,7 +36,7 @@ return function ()
                     layout = wibox.layout.align.horizontal,
                 },
                 widget = wibox.container.margin,
-                left = dpi(100)
+                left = dpi(30)
             }
         }
 
