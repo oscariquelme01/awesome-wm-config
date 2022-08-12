@@ -2,6 +2,9 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
 local gears = require("gears")
+local dpi = beautiful.xresources.apply_dpi
+
+local icons = require("icons")
 
 require("modules.bling")
 
@@ -25,20 +28,23 @@ return function(s)
         awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
     )
 
+    -- icons for each situation
+    local focus = gears.surface.load_uncached(icons.ghost)
+    local unfocus = gears.color.recolor_image(gears.surface.load_uncached(icons.scared_ghost), beautiful.dark_grey)
+    local empty = gears.color.recolor_image(gears.surface.load_uncached(icons.circle), beautiful.dark_grey)
+
     local function update_callback(self, tag, _, _)
 
-        -- switch circle depending on the tag situation
-        if tag.selected then
-            self:get_children_by_id('background_role')[1].fg = beautiful.pink
-            tag.name = 'ﱣ'
-        elseif #tag:clients() == 0 then
-            self:get_children_by_id('background_role')[1].fg = beautiful.dark_grey
-            tag.name = 'ﱤ'
-        else
-            self:get_children_by_id('background_role')[1].fg = beautiful.light_blue
-            tag.name = 'ﱣ'
-        end
+        local tag_icon = self:get_children_by_id('icon_role')[1]
 
+        -- switch icon depending on the tag situation
+        if tag.selected then
+            tag_icon.image = gears.color.recolor_image(focus, beautiful.tag_colors[tonumber(tag.name)])
+        elseif #tag:clients() == 0 then
+            tag_icon.image = empty
+        else
+            tag_icon.image = unfocus
+        end
     end
 
     local function create_callback(self, tag, _, _)
@@ -46,7 +52,7 @@ return function(s)
         -- initial update
         update_callback(self, tag, _, _)
 
-        --- Tag preview
+        --- Tag preview not working currently for some reason
         self:connect_signal("mouse::enter", function()
             if #tag:clients() > 0 then
                 awesome.emit_signal("bling::tag_preview::update", tag)
@@ -61,47 +67,27 @@ return function(s)
     end
 
 
-     -- Setup tags and default layout
-     awful.tag({"ﱤ", "ﱤ", "ﱤ", "ﱤ", "ﱤ", "ﱤ", "ﱤ"}, s, awful.layout.suit.tile)
+    -- Setup tags and default layout, the name can't be changed because it is used to change the colors of the focused taglist
+    awful.tag({"1", "2", "3", "4", "5", "6", "7"}, s, awful.layout.suit.tile)
 
+    -- actual taglist containing just an icon and the margin for each tag
     local taglist = awful.widget.taglist({
         screen = s,
         filter = awful.widget.taglist.filter.all,
-        style  = {
-            shape = gears.shape.rounded_rect,
-        },
-        layout = {
-            spacing = 0,
-            layout = wibox.layout.fixed.horizontal
-        },
+        style  = { shape = gears.shape.rounded_rect },
+        layout = { spacing = 0, layout = wibox.layout.fixed.vertical },
         widget_template = {
-            {
-                {
-                    { -- taglist number background
-                        { -- margin
-                            { -- taglist number
-                                id = 'text_role',
-                                widget = wibox.widget.textbox
-                            },
-                            margins = 7,
-                            widget = wibox.container.margin
-                        },
-                        id = 'background_role',
-                        widget = wibox.container.background
-                    },
-                    {
-                        id = 'index_role',
-                        widget = wibox.widget.textbox
-                    },
-                    layout = wibox.layout.fixed.horizontal
-                },
-                right = 4, left = 4,
-                top = 8, bottom = 8,
+ {
+                {id = 'icon_role', widget = wibox.widget.imagebox, forced_height = dpi(30), forced_width = dpi(30)},
+                id = 'margin_role',
+                top = dpi(4),
+                bottom = dpi(4),
+                left = dpi(8),
+                right = dpi(8),
                 widget = wibox.container.margin
             },
             id = 'background_role',
             widget = wibox.container.background,
-            shape = gears.shape.rounded_rect,
             create_callback = create_callback,
             update_callback = update_callback,
         },

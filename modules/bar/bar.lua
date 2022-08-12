@@ -13,21 +13,22 @@
          s.info = info(s)
 
          -- wibar
-         s.wibar = awful.wibar({position = "top", screen = s, stretch = true})
+         s.wibar = awful.wibar({position = "left", screen = s, stretch = true})
 
          s.wibar:setup {
-             layout = wibox.layout.align.horizontal,
+             layout = wibox.layout.align.vertical,
              expand = "none",
              { -- Left widgets
                 s.taglist,
-                layout = wibox.layout.fixed.horizontal,
+                layout = wibox.layout.fixed.vertical,
              },
              { -- Middle widgets
-                 layout = wibox.layout.fixed.horizontal,
-                 wibox.layout.margin(s.clock, 10, 10, 10, 10),
+                 layout = wibox.layout.fixed.vertical,
+                 wibox.layout.margin(s.clock, 7, 0, 0, 0),
+                 -- s.clock
              },
              { -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
+                layout = wibox.layout.fixed.vertical,
                 wibox.layout.margin(s.info, 0, 20, 0, 0)
              }
          }

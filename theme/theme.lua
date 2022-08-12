@@ -37,7 +37,7 @@ theme.border_width = 1
 theme.border_normal = theme.black
 
 -- Wibar
-theme.wibar_height = 40
+theme.wibar_width = 40
 theme.wibar_stretch = true
 theme.wibar_bg = theme.black
 theme.wibar_fg = theme.text
@@ -47,6 +47,7 @@ theme.wibar_border_color = theme.darker_grey
 
 theme.taglist_font = theme.font
 theme.taglist_bg_focus = theme.black
+theme.tag_colors = {theme.red, theme.orange, theme.yellow, theme.green, theme.light_blue, theme.blue, theme.purple}
 -- theme.taglist_fg_focus = theme.pink
 
 return theme
