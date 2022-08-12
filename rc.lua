@@ -15,8 +15,10 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/theme.lua")
 require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
 
+require("modules.init.init")
 require("modules.bar.bar")
 require("modules.binds.bindings")
+
 
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
@@ -24,12 +26,6 @@ if awesome.startup_errors then
         text = awesome.startup_errors })
 end
 
--- autostart matters (might move to a new module)
-awful.spawn.with_shell("~/.config/awesome/autostart.sh")
-awful.spawn.with_shell("feh --bg-scale ~/.config/bg/dark-pink-city-5k.png")
-awful.spawn.with_shell("xrandr --output HDMI-0 --right-of DP-0")
-awful.spawn.with_shell('xmodmap -e "keycode 51 = less greater less greater"')
-awful.spawn.with_shell('xmodmap -e "keycode 21 = backslash questiondown exclamdown questiondown dead_tilde asciitilde dead_tilde"')
 
 -- Order in which the different layouts will be switched
 awful.layout.layouts = {
