@@ -84,6 +84,18 @@ globalkeys = gears.table.join(
     awful.key({ modkey, }, "s", function () awful.screen.focus_relative(1) end,
               {description = "focus the next screen", group = "screen"}),
 
+    -- increase brightness
+    awful.key({ modkey }, ".",
+        function ()
+            awful.spawn.with_shell("light -A 2") end,
+        {description = "increase brightness", group = "screen"}),
+
+    -- decrease brightness
+    awful.key({ modkey }, ",",
+        function ()
+            awful.spawn.with_shell("light -U 2") end,
+        {description = "decrease brightness", group = "screen"}),
+
     -- toggle information pannel
     awful.key({ modkey }, "i",
         function ()
