@@ -6,8 +6,6 @@ local dpi = beautiful.xresources.apply_dpi
 
 local icons = require("icons")
 
-require("modules.bling")
-
 return function(s)
 
     -- buttons to enable mouse navigation
