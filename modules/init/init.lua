@@ -1,6 +1,6 @@
 local awful = require("awful")
 
--- autostart matters (might move to a new module)
+-- autostart matters
 local is_laptop
 
 if os.getenv("IS_LAPTOP") then is_laptop = true else is_laptop = false end
