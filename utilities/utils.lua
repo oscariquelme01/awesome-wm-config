@@ -48,4 +48,11 @@ function M.starts_with(str, start)
     return str:sub(1, #start) == start
 end
 
+-- Helper function to help me debug
+function M.log(str)
+         local file = io.open("log.txt", "a")
+         file:write(str)
+         file:close()
+end
+
 return M
