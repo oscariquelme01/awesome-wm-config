@@ -23,7 +23,7 @@ end
 
 
 -- Create rounded rectangle with the specified radius
-function M.rounded_shape(radius)
+function M.rounded_rect(radius)
     return function(cr, width, height)
         gears.shape.rounded_rect(cr, width, height, radius)
     end
