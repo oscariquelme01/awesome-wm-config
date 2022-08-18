@@ -49,10 +49,23 @@ function M.starts_with(str, start)
 end
 
 -- Helper function to help me debug
-function M.log(str)
-         local file = io.open("log.txt", "a")
-         file:write(str)
+function M.log(o)
+    local file = io.open("log.txt", "a")
+
+    if type(o) == 'string' or type(o) == 'number' then
+         file:write(o)
          file:close()
+    elseif type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. M.log(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+
 end
 
 return M
