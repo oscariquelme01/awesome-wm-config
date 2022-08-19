@@ -86,11 +86,21 @@ return function(action)
         end
     end
 
+
+    local timed
+
+    -- Function to switch the state when clicked, separated from the wibox.widget definition because I need to keep a reference
+    -- so that I can set a keybind to toggle the control pannel
+    local toggle = function()
+        timed.target = (timed.target + 1) % 2
+
+        -- action to be performed when the hamburger is clicked
+        action()
+    end
+
     -- Main function to return.
     -- The action parameter is a callable containing the action that will be performed when the hamburger is clicked
     -- NOTE: In the original file by the author andOrlando, it is not a callable! it is an awful.button appended to buttons
-    local timed
-
     local w = wibox.widget {
 
         -- initial state is 0
@@ -98,12 +108,7 @@ return function(action)
         fit = function(_, _, _, height) return height, height end,
         buttons = gears.table.join(
             -- switch state
-            awful.button({}, 1, function()
-                timed.target = (timed.target + 1) % 2
-
-                -- action to be performed when the hamburger is clicked
-                action()
-            end)
+            awful.button({}, 1, toggle)
         ),
         -- IMPORTANT: original file didn't work for me until I set forced_height
         -- The reason is that I have a vertical wibar so it was getting an absurdly high height and since height = width
@@ -122,6 +127,8 @@ return function(action)
             w:emit_signal("widget::redraw_needed")
         end
     }
+
+    w.toggle = toggle
 
     return w
 

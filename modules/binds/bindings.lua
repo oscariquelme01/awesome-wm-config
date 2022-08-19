@@ -97,10 +97,10 @@ globalkeys = gears.table.join(
         {description = "decrease brightness", group = "screen"}),
 
     -- toggle information pannel
-    awful.key({ modkey }, "i",
+    awful.key({ modkey }, "m",
         function ()
             local screen = awful.screen.focused()
-            screen.info.toggle() end,
+            screen.menu.toggle() end,
         {description = "toggle information pannel", group = "screen"})
 )
 
