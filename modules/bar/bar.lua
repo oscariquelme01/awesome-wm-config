@@ -18,7 +18,7 @@
          s.clock = clock()
          s.battery = battery()
          s.launcher = launcher()
-         s.menu = menu(function () utils.log("it worked!!!") end)
+         s.menu = menu(function() s.control_pannel.toggle() end)
 
          -- wibar
          s.wibar = awful.wibar({position = "left", screen = s, stretch = true})

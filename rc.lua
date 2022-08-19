@@ -18,6 +18,7 @@ require("awful.hotkeys_popup.keys")
 require("modules.init.init")
 require("modules.bar.bar")
 require("modules.binds.bindings")
+require("modules.control_pannel.control_pannel")
 
 
 if awesome.startup_errors then
