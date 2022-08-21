@@ -15,10 +15,11 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/theme.lua")
 require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
 
-require("modules.init.init")
+require("modules.start_up")
 require("modules.bar.bar")
 require("modules.binds.bindings")
 require("modules.control_pannel.control_pannel")
+require("modules.alt_tab")
 
 
 if awesome.startup_errors then
