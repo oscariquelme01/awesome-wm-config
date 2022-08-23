@@ -29,14 +29,14 @@ globalkeys = gears.table.join(
     awful.key({ modkey, }, "k", function () awful.client.focus.byidx(-1) end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey, }, "Tab",
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end,
-        {description = "go back", group = "client"}),
+    -- awful.key({ modkey, }, "Tab",
+    --     function ()
+    --         awful.client.focus.history.previous()
+    --         if client.focus then
+    --             client.focus:raise()
+    --         end
+    --     end,
+    --     {description = "go back", group = "client"}),
 
     -- Open terminal
     awful.key({ modkey, }, "Return", function () awful.spawn(terminal) end,
@@ -96,12 +96,19 @@ globalkeys = gears.table.join(
             awful.spawn.with_shell("light -U 2") end,
         {description = "decrease brightness", group = "screen"}),
 
-    -- toggle information pannel
+    -- toggle control pannel
     awful.key({ modkey }, "m",
         function ()
             local screen = awful.screen.focused()
             screen.menu.toggle() end,
-        {description = "toggle information pannel", group = "screen"})
+        {description = "toggle control pannel", group = "screen"})
+
+    -- alt tab tasklist
+    -- awful.key({ modkey }, "Tab",
+    --     function ()
+    --         local screen = awful.screen.focused()
+    --         screen.tasklist.toggle() end,
+    --     {description = "toggle tasklist", group = "screen"})
 )
 
 -- for loop for everytag list
