@@ -8,7 +8,6 @@ local wibox = require 'wibox'
 local rubato = require 'lib.rubato'
 local awful = require 'awful'
 local gears = require 'gears'
-local utils = require 'utilities.utils'
 local dpi   = require 'beautiful'.xresources.apply_dpi
 
 return function(action)
@@ -92,6 +91,8 @@ return function(action)
     -- Function to switch the state when clicked, separated from the wibox.widget definition because I need to keep a reference
     -- so that I can set a keybind to toggle the control pannel
     local toggle = function()
+        if timed.running then return end
+
         timed.target = (timed.target + 1) % 2
 
         -- action to be performed when the hamburger is clicked
