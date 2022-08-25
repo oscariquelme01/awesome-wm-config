@@ -1,6 +1,7 @@
 local theme = {}
 
 theme.font = "sarasa mono k bold 13"
+theme.icon_font = "Material Icon Round "
 theme.font_large = "sarasa mono k bold 16"
 theme.font_extra_large = "sarasa mono k bold 20"
 

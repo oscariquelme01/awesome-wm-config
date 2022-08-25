@@ -94,6 +94,7 @@ local previous_client
 local clients
 
 local start_callback = function ()
+    utils.log("Holaa")
     clients = get_clients()
 
     no_clients = false
@@ -168,7 +169,6 @@ end
 awful.keygrabber {
     keybindings = {
     {{ modkey }, 'Tab', update_callback},
-    -- {{modkey, 'Shift'}, 'Tab', probando},
     },
     -- Note that it is using the key name and not the modifier name.
     stop_key           = modkey,

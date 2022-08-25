@@ -18,7 +18,7 @@ end
 
 -- Function meant to colorize the text of a widget.textbox using the its markup system
 M.colorize_text = function(text, color)
-    return "<span foreground='"..color.."'>"..text.."</span>"
+    return "<span foreground='" .. color .."'>" .. text .. "</span>"
 end
 
 

@@ -6,6 +6,9 @@ local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local utils = require("utilities.utils")
 
+local profile = require("modules.control_pannel.profile_pannel")
+local volume_slider = require("modules.control_pannel.sliders.volume")
+
 awful.screen.connect_for_each_screen(function(s)
 
     -- Main pannel
@@ -21,30 +24,54 @@ awful.screen.connect_for_each_screen(function(s)
         bg = beautiful.deep_black,
         ontop = true,
         visible = false,
-        markup = 'Holaaa',
-        widget = wibox.widget.textbox,
     })
+
+    -- Sub pannels
+    local profile_pannel = profile()
+    local vol_slider = volume_slider()
 
     -- Keep a reference through the screen so that it can be access later
     s.control_pannel = control_pannel
 
     -- Initial setup
-    control_pannel:setup { -- Main container
-        { -- Margin container for volume and brightness pannel
-            { -- Volume and brightness slider container
-                wibox.widget.base.make_widget(),
+    -- control_pannel:setup { -- Main container
+    --     -- profile_pannel,
+    --     { -- Margin container for volume and brightness pannel
+    --         { -- Volume and brightness slider container
+    --             {
+    --                 vol_slider,
+    --                 layout = wibox.layout.fixed.horizontal,
+    --             },
+    --             widget = wibox.container.background,
+    --             bg = beautiful.black,
+    --             shape = utils.rounded_rect(dpi(10)),
+    --             forced_height = dpi(100)
+    --         },
+    --         widget = wibox.container.margin,
+    --         margins = dpi(6)
+    --     },
+    --     layout = wibox.layout.fixed.vertical,
+    -- }
+    control_pannel:setup {
+        {
+            {
+                {
+                    {
+                        vol_slider,
+                        layout = wibox.layout.align.vertical,
+                    },
+                    widget = wibox.container.margin,
+                    margins = dpi(20),
+                },
                 widget = wibox.container.background,
                 bg = beautiful.black,
                 shape = utils.rounded_rect(dpi(10)),
-                forced_height = dpi(100)
+                -- forced_height = dpi(100),
             },
             widget = wibox.container.margin,
-            left = dpi(6),
-            right = dpi(6),
-            top = dpi(8),
-            bottom = dpi(8),
-            },
-        layout = wibox.layout.fixed.vertical,
+            margins = dpi(6),
+        },
+        layout = wibox.layout.align.vertical,
     }
 
     -- animations
@@ -53,7 +80,7 @@ awful.screen.connect_for_each_screen(function(s)
         rate = 60,
         intro = 0.14,
         duration = 0.33,
-        subscribed = function(pos) s.control_pannel.y = s.geometry.y + pos utils.log((s.geometry.y + pos) .. "\n") end
+        subscribed = function(pos) s.control_pannel.y = s.geometry.y + pos end
     }
 
     -- timer to be executed when the slide out animation is over
@@ -66,7 +93,6 @@ awful.screen.connect_for_each_screen(function(s)
     })
 
     -- Toggle function to open/close the function
-    -- TODO: fix the double click open bug
     control_pannel.toggle = function ()
         if s.control_pannel.visible == false then
             slide.target = dpi(320)
@@ -77,6 +103,4 @@ awful.screen.connect_for_each_screen(function(s)
         end
     end
 
-
 end)
- 
