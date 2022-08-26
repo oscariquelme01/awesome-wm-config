@@ -6,9 +6,8 @@ local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 local utils = require("utilities.utils")
 
-local profile = require("modules.control_pannel.profile_pannel")
-local volume_slider = require("modules.control_pannel.sliders.volume")
 local slider_pannel = require("modules.control_pannel.sliders")
+local toggler_pannel = require("modules.control_pannel.togglers")
 
 awful.screen.connect_for_each_screen(function(s)
 
@@ -28,9 +27,8 @@ awful.screen.connect_for_each_screen(function(s)
     })
 
     -- Sub pannels
-    local profile_pannel = profile()
-    local vol_slider = volume_slider()
     local sliders = slider_pannel()
+    local togglers = toggler_pannel()
 
     -- Keep a reference through the screen so that it can be access later
     s.control_pannel = control_pannel
@@ -38,25 +36,16 @@ awful.screen.connect_for_each_screen(function(s)
     -- Initial setup
     control_pannel:setup {
         {
-        --     {
-        --         {
-        --             {
-        --                 vol_slider,
-        --                 layout = wibox.layout.align.vertical,
-        --             },
-        --             widget = wibox.container.margin,
-        --             margins = dpi(20),
-        --         },
-        --         widget = wibox.container.background,
-        --         bg = beautiful.black,
-        --         shape = utils.rounded_rect(dpi(10)),
-        --         -- forced_height = dpi(100),
-        --     },
             sliders,
             widget = wibox.container.margin,
             margins = dpi(6),
         },
-        layout = wibox.layout.align.vertical,
+        {
+            togglers,
+            widget = wibox.container.margin,
+            margins = dpi(6),
+        },
+        layout = wibox.layout.fixed.vertical,
     }
 
     -- animations

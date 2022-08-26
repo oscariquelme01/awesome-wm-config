@@ -1,31 +1,27 @@
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local utils = require("utilities.utils")
 local dpi = beautiful.xresources.apply_dpi
+local utils = require("utilities.utils")
 
--- sliders
-local volume_slider = require("modules.control_pannel.sliders.volume")
-local mic_slider = require("modules.control_pannel.sliders.mic")
+local blue_light_toggler = require("modules.control_pannel.togglers.blue_light")
 
-return function()
-    -- instantiate sliders
-    local volume = volume_slider()
-    local mic = mic_slider()
+return function ()
+    local blue_light = blue_light_toggler()
 
     return wibox.widget{
                 {
                     {
                         {
-                            volume,
-                            mic,
-                            layout = wibox.layout.fixed.vertical,
+                            blue_light,
+                            layout = wibox.layout.fixed.horizontal,
                             spacing = dpi(40)
                         },
                         widget = wibox.container.margin,
-                        margins = dpi(20),
+                        right = dpi(20),
+                        left = dpi(20),
                     },
                     widget = wibox.container.background,
-                    bg = beautiful.black,
+                    bg = beautiful.deeper_black,
                     shape = utils.rounded_rect(dpi(10)),
                 },
                 widget = wibox.container.margin,

@@ -7,6 +7,7 @@ return {
     ghost = dir .. "ghost.svg",
     scared_ghost = dir .. "scared-ghost.svg",
     circle = dir .. "circle.svg",
-    rocket = dir .. "rocket.png"
+    rocket = dir .. "rocket.png",
+    blue_light = dir .. "night-light.png"
 
 }
