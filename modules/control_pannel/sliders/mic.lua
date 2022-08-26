@@ -6,7 +6,7 @@ local gears = require("gears")
 local awful = require("awful")
 
 return function ()
-    local volume_slider = wibox.widget{
+    local mic_slider = wibox.widget{
         forced_width = dpi(470),
         bar_shape = utils.rounded_rect(dpi(4)),
         bar_height = dpi(4),
@@ -26,14 +26,14 @@ return function ()
         widget = wibox.widget.slider,
     }
 
-    local volume_icon = wibox.widget{
+    local mic_icon = wibox.widget{
         widget = wibox.widget.textbox,
         font = beautiful.icon_font .. "24",
         align = 'center',
         valign = 'center'
     }
 
-    local volume_text = wibox.widget{
+    local mic_text = wibox.widget{
         widget = wibox.widget.textbox,
         font = beautiful.font_large,
         align = 'center',
@@ -43,48 +43,47 @@ return function ()
     --get initial value and icon and set the widgets initial values
     local initial_icon
     local initial_value
-    local cmd = "amixer get Master | tail -n 1 | awk '{print $4}' | tr -d '[%]'"
+    local cmd = "amixer get Capture | tail -n 1 | awk '{print $5}' | tr -d '[%]'"
     awful.spawn.easy_async_with_shell(cmd, function (output)
         initial_value = tonumber(output)
 
-        if initial_value == 0 then initial_icon = "ﱝ"
-        else initial_icon = "墳" end
+        if initial_value == 0 then initial_icon = ""
+        else initial_icon = "" end
 
 
-        volume_icon.markup = utils.colorize_text(initial_icon, beautiful.text)
-        volume_text.markup = utils.colorize_text(output .. "%", beautiful.text)
-        volume_slider.value = initial_value
+        mic_icon.markup = utils.colorize_text(initial_icon, beautiful.text)
+        mic_text.markup = utils.colorize_text(output .. "%", beautiful.text)
+        mic_slider.value = initial_value
     end)
 
     -- update widgets when the value of the slider changes
-    volume_slider:connect_signal("property::value", function ()
+    mic_slider:connect_signal("property::value", function ()
 
         -- update icon
         local updated_icon
 
-        if volume_slider.value == 0 then updated_icon = "ﱝ"
-        else updated_icon = "墳" end
+        if mic_slider.value == 0 then updated_icon = ""
+        else updated_icon = "" end
 
-        volume_icon.markup = utils.colorize_text(updated_icon, beautiful.text)
+        mic_icon.markup = utils.colorize_text(updated_icon, beautiful.text)
 
         -- update text
-        volume_text.markup = utils.colorize_text(tostring(volume_slider.value .. "%"), beautiful.text)
+        mic_text.markup = utils.colorize_text(tostring(mic_slider.value .. "%"), beautiful.text)
 
         -- update volume
-        awful.spawn("amixer set Master " .. volume_slider.value .."%", false)
+        awful.spawn("amixer set Capture " .. mic_slider.value .."%", false)
     end)
 
     -- return widget that puts everything together
     return wibox.widget {
         {
-            volume_icon,
-            volume_slider,
-            volume_text,
+            mic_icon,
+            mic_slider,
+            mic_text,
             layout = wibox.layout.fixed.horizontal,
             spacing = 10
         },
         forced_height = dpi(24),
-        -- forced_width = dpi(400),
         widget = wibox.widget.background,
     }
 

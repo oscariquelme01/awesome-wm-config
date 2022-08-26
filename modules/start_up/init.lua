@@ -17,3 +17,4 @@ else
     awful.spawn.with_shell('xmodmap -e "keycode 21 = backslash questiondown exclamdown questiondown dead_tilde asciitilde dead_tilde"')
 end
 
+-- TODO: create script to determine whether the slider.lua file needs to be updated for the sliders to work

@@ -94,7 +94,6 @@ local previous_client
 local clients
 
 local start_callback = function ()
-    utils.log("Holaa")
     clients = get_clients()
 
     no_clients = false
