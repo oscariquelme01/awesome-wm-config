@@ -4,17 +4,24 @@ local dpi = beautiful.xresources.apply_dpi
 local utils = require("utilities.utils")
 
 local blue_light_toggler = require("modules.control_pannel.togglers.blue_light")
+local bluetooth_toggler = require("modules.control_pannel.togglers.bluetooth")
+local wifi_toggler = require("modules.control_pannel.togglers.wifi")
 
 return function ()
     local blue_light = blue_light_toggler()
+    local bluetooth = bluetooth_toggler()
+    local wifi = wifi_toggler()
 
+    -- Layout required widgets
     return wibox.widget{
                 {
                     {
                         {
                             blue_light,
+                            bluetooth,
+                            wifi,
                             layout = wibox.layout.fixed.horizontal,
-                            spacing = dpi(40)
+                            spacing = dpi(44)
                         },
                         widget = wibox.container.margin,
                         right = dpi(20),

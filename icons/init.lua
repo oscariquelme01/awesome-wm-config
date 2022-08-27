@@ -8,6 +8,8 @@ return {
     scared_ghost = dir .. "scared-ghost.svg",
     circle = dir .. "circle.svg",
     rocket = dir .. "rocket.png",
-    blue_light = dir .. "night-light.png"
+    blue_light = dir .. "night-light.png",
+    bluetooth = dir .. "bluetooth.png",
+    wifi = dir .. "wifi.png"
 
 }
