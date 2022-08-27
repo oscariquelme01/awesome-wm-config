@@ -8,6 +8,7 @@ local utils = require("utilities.utils")
 
 local slider_pannel = require("modules.control_pannel.sliders")
 local toggler_pannel = require("modules.control_pannel.togglers")
+local profile_pannel = require("modules.control_pannel.profile_pannel")
 
 awful.screen.connect_for_each_screen(function(s)
 
@@ -29,12 +30,14 @@ awful.screen.connect_for_each_screen(function(s)
     -- Sub pannels
     local sliders = slider_pannel()
     local togglers = toggler_pannel()
+    local profile = profile_pannel()
 
     -- Keep a reference through the screen so that it can be access later
     s.control_pannel = control_pannel
 
     -- Initial setup
     control_pannel:setup {
+        profile,
         {
             sliders,
             widget = wibox.container.margin,

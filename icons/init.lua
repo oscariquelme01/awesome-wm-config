@@ -10,6 +10,6 @@ return {
     rocket = dir .. "rocket.png",
     blue_light = dir .. "night-light.png",
     bluetooth = dir .. "bluetooth.png",
-    wifi = dir .. "wifi.png"
-
+    wifi = dir .. "wifi.png",
+    prof_pic = dir .. "madao.png"
 }
