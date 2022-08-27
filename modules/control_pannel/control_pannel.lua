@@ -18,7 +18,7 @@ awful.screen.connect_for_each_screen(function(s)
         screen = s,
         border_width = dpi(2),
         border_color = beautiful.dark_grey,
-        width = dpi(620),
+        width = dpi(520),
         height = dpi(720),
         x = dpi(100),
         bg = beautiful.deep_black,

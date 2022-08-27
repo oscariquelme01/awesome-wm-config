@@ -7,7 +7,7 @@ local awful = require("awful")
 
 return function ()
     local mic_slider = wibox.widget{
-        forced_width = dpi(470),
+        forced_width = dpi(370),
         bar_shape = utils.rounded_rect(dpi(4)),
         bar_height = dpi(4),
         bar_active_color = beautiful.light_blue,
