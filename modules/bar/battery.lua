@@ -77,12 +77,13 @@ return function ()
     -- Update battery widget. 5 is the timeout
     watch("acpi", 5,
     function(widget, stdout)
+        local charge
 
         -- for each line the command outputted
         for s in stdout:gmatch("[^\r\n]+") do
             local status, charge_str, _ = string.match(s, '.+: ([%a%s]+), (%d?%d?%d)%%,?(.*)')
 
-            local charge = tonumber(charge_str)
+            charge = tonumber(charge_str)
             battery_progress.value = charge
 
             -- show/hide charging icon
@@ -104,6 +105,8 @@ return function ()
                 battery_progress.color = beautiful.light_blue
             end
         end
+
+        battery.charge = charge
     end,
     battery)
 
