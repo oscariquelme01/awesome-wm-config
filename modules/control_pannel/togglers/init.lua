@@ -32,6 +32,10 @@ return function ()
                     shape = utils.rounded_rect(dpi(10)),
                 },
                 widget = wibox.container.margin,
-                margins = dpi(6),
+                left = dpi(40),
+                right = dpi(40),
+                top = dpi(6),
+                bottom = dpi(6),
+                forced_height = dpi(100)
     }
 end

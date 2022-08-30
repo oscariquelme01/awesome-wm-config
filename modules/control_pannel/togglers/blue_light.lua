@@ -13,15 +13,14 @@ return function ()
                 image = icons.blue_light,
             },
             widget = wibox.container.margin,
-            left = dpi(8),
-            right = dpi(8),
+            left = dpi(12),
+            right = dpi(12),
             bottom = dpi(8),
         },
         widget = wibox.container.background,
         bg = beautiful.green,
         shape = utils.rounded_rect(dpi(16)),
-        forced_width = dpi(120),
-        forced_height = dpi(120),
+        forced_width = dpi(100),
     }
 
     -- Initially active since the redshift service should be launched in the xinit file

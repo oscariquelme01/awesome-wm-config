@@ -14,8 +14,8 @@ local status_pannel = require("modules.control_pannel.status_line")
 awful.screen.connect_for_each_screen(function(s)
 
     -- pannels's height value when the extra pannel is on/off
-    local extended_height = dpi(720)
-    local shrinked_height = dpi(500)
+    local extended_height = dpi(680)
+    local shrinked_height = dpi(460)
     -- pannel's y position when the extra pannel is on/off
     local extended_pos = dpi(320)
     local shrinked_pos = dpi(540)
@@ -26,7 +26,7 @@ awful.screen.connect_for_each_screen(function(s)
         shape = utils.rounded_rect(dpi(12)),
         screen = s,
         border_width = dpi(2),
-        border_color = beautiful.dark_grey,
+        border_color = beautiful.black,
         width = dpi(520),
         height = shrinked_height,
         x = dpi(100),
