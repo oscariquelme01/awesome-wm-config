@@ -1,3 +1,4 @@
+-- this file is a mess, will probably overhaul it some day
 local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
@@ -10,14 +11,15 @@ local slider_pannel = require("modules.control_pannel.sliders")
 local toggler_pannel = require("modules.control_pannel.togglers")
 local profile_pannel = require("modules.control_pannel.profile_pannel")
 local status_pannel = require("modules.control_pannel.status_line")
+local info_pannel = require("modules.control_pannel.info_pannel")
 
 awful.screen.connect_for_each_screen(function(s)
 
     -- pannels's height value when the extra pannel is on/off
-    local extended_height = dpi(680)
+    local extended_height = dpi(600)
     local shrinked_height = dpi(460)
     -- pannel's y position when the extra pannel is on/off
-    local extended_pos = dpi(320)
+    local extended_pos = dpi(400)
     local shrinked_pos = dpi(540)
 
     -- Main pannel
@@ -28,7 +30,6 @@ awful.screen.connect_for_each_screen(function(s)
         border_width = dpi(2),
         border_color = beautiful.black,
         width = dpi(520),
-        height = shrinked_height,
         x = dpi(100),
         bg = beautiful.deep_black,
         ontop = true,
@@ -60,11 +61,28 @@ awful.screen.connect_for_each_screen(function(s)
             control_pannel.move_extra.target = extended_pos
             control_pannel.slide_extra_end:again()
         else
-            -- control_pannel.fake_pannel.visible = true
+            control_pannel.layout:replace_widget(control_pannel.info_with_margins, control_pannel.fake_pannel)
             control_pannel.slide_extra.target = shrinked_height
             control_pannel.slide_extra_end:again()
         end
     end
+
+
+    -- Sub pannels
+    local sliders = slider_pannel()
+    local togglers = toggler_pannel()
+    local profile = profile_pannel()
+    local status_line = status_pannel(control_pannel.toggle_extra)
+    local info = info_pannel()
+
+    -- info with margins that will be used to replace the fake widget
+    control_pannel.info_with_margins = wibox.widget{
+            info,
+            widget = wibox.container.margin,
+            top = dpi(10),
+            left = dpi(20),
+            right = dpi(20)
+        }
 
     -- now this is some real cool engineering stuff
     -- If you only animate the control pannel height and y position the fixed layout will put the status pannel all over the place
@@ -75,16 +93,8 @@ awful.screen.connect_for_each_screen(function(s)
         widget = wibox.container.background,
         bg = beautiful.deep_black,
         shape = utils.rounded_rect(dpi(2)),
-        -- visible = false,
-        forced_height = dpi(220)
+        forced_height = 160
     }
-
-    -- Sub pannels
-    local sliders = slider_pannel()
-    local togglers = toggler_pannel()
-    local profile = profile_pannel()
-    local status_line = status_pannel(control_pannel.toggle_extra)
-
     -- keep a reference to the layout to be able to swap widgets
     control_pannel.layout = wibox.widget {
         layout = wibox.layout.fixed.vertical
@@ -140,7 +150,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- extra animations
     control_pannel.slide_extra = rubato.timed{
-        pos = dpi(500),
+        pos = shrinked_height,
         rate = 60,
         intro = 0.14,
         duration = 0.33,
@@ -160,6 +170,14 @@ awful.screen.connect_for_each_screen(function(s)
         end
     }
 
+    local replace_after_slide = gears.timer{
+        single_shot = true,
+        timeout = 0.33 + 0.08,
+        callback = function()
+            control_pannel.layout:replace_widget(control_pannel.fake_pannel, control_pannel.info_with_margins)
+        end,
+    }
+
     -- timer to be executed when the slide extra animation is over
     -- in case the extra pannel is on, it will set the slide_extra.target to shrink it
     -- in case it is not, it will set the move_extra.target up to make space for the extra pannel
@@ -168,12 +186,11 @@ awful.screen.connect_for_each_screen(function(s)
         timeout = 0.33 + 0.08,
         callback = function()
             if control_pannel.extra == true then
-                -- fake_pannel.visible = false
                 control_pannel.move_extra.target = shrinked_pos
                 control_pannel.extra = false
             else
                 control_pannel.slide_extra.target = extended_height
-                -- control_pannel.fake_pannel.visible = true
+                replace_after_slide:again()
                 control_pannel.extra = true
             end
         end,
