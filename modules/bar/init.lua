@@ -10,13 +10,16 @@
  local battery = require("modules.bar.battery")
  local menu = require("modules.bar.menu")
 
+ local is_laptop = os.getenv("IS_LAPTOP")
+ if os.getenv("IS_LAPTOP") then is_laptop = true else is_laptop = false end
+
 
  awful.screen.connect_for_each_screen(
      function(s)
          -- instantiate widgets
          s.taglist = taglist(s)
          s.clock = clock()
-         s.battery = battery()
+         if is_laptop then s.battery = battery() else s.battery = nil end
          s.launcher = launcher()
          s.menu = menu(function() s.control_pannel.toggle() end)
 
@@ -39,6 +42,7 @@
                 {
                      s.menu,
                      right = dpi(2),
+                     left = dpi(2),
                      layout = wibox.container.margin
                  },
                 {
@@ -53,7 +57,7 @@
                     layout = wibox.container.margin
                  },
                  layout = wibox.layout.fixed.vertical,
-                 spacing = dpi(10)
+                 spacing = dpi(2)
              },
              layout = wibox.layout.align.vertical,
              expand = "none",
