@@ -15,6 +15,8 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/theme.lua")
 require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
 
+local bling = require("lib.bling")
+
 require("modules.start_up")
 require("modules.bar")
 require("modules.binds.bindings")
@@ -31,11 +33,12 @@ end
 
 -- Order in which the different layouts will be switched
 awful.layout.layouts = {
-  awful.layout.suit.tile,
-  awful.layout.suit.floating,
-  awful.layout.suit.tile.left,
-  awful.layout.suit.tile.bottom,
-  awful.layout.suit.tile.top,
+    awful.layout.suit.tile,
+    bling.layout.equalarea,
+    awful.layout.suit.floating,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.top,
 }
 
 -- load globalkeys from bindings.lua

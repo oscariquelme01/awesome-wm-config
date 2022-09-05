@@ -1,6 +1,7 @@
 local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+local utils = require("utilities.utils")
 
 require("awful.hotkeys_popup.keys")
 require("awful.autofocus")
@@ -9,14 +10,6 @@ globalkeys = gears.table.join(
     -- show available keybindings
     awful.key({ modkey, }, "z", hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-
-    awful.key({modkey, "Shift"}, "z", function() local file = io.open("debugggg.txt", "a"); file:close() end, {description = "debug", group="awesome"}),
-
-    -- focus previous/next tag
-    awful.key({ modkey, }, "Left", awful.tag.viewprev,
-              {description = "view previous", group = "tag"}),
-    awful.key({ modkey, }, "Right",  awful.tag.viewnext,
-              {description = "view next", group = "tag"}),
 
     -- go back to previous tag
     awful.key({ modkey, }, "Escape", awful.tag.history.restore,
@@ -29,14 +22,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey, }, "k", function () awful.client.focus.byidx(-1) end,
         {description = "focus previous by index", group = "client"}
     ),
-    -- awful.key({ modkey, }, "Tab",
-    --     function ()
-    --         awful.client.focus.history.previous()
-    --         if client.focus then
-    --             client.focus:raise()
-    --         end
-    --     end,
-    --     {description = "go back", group = "client"}),
 
     -- Open terminal
     awful.key({ modkey, }, "Return", function () awful.spawn(terminal) end,
@@ -71,9 +56,9 @@ globalkeys = gears.table.join(
               {description = "decrease the number of columns", group = "layout"}),
 
     -- switching between layouts
-    awful.key({ modkey, }, "space", function () awful.layout.inc(1) end,
+    awful.key({ modkey, "Control", }, "space", function () awful.layout.inc(1) end,
               {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift" }, "space", function () awful.layout.inc(-1) end,
+    awful.key({ modkey, "Shift", "Control", }, "space", function () awful.layout.inc(-1) end,
               {description = "select previous", group = "layout"}),
 
     -- Run rofi
@@ -103,12 +88,6 @@ globalkeys = gears.table.join(
             screen.menu.toggle() end,
         {description = "toggle control pannel", group = "screen"})
 
-    -- alt tab tasklist
-    -- awful.key({ modkey }, "Tab",
-    --     function ()
-    --         local screen = awful.screen.focused()
-    --         screen.tasklist.toggle() end,
-    --     {description = "toggle tasklist", group = "screen"})
 )
 
 -- for loop for everytag list
@@ -159,12 +138,13 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
+
     -- kill window
     awful.key({ modkey, "Shift" }, "q", function (c) c:kill() end,
               {description = "close", group = "client"}),
 
     -- toggle floating
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle,
+    awful.key({ modkey, }, "space",  awful.client.floating.toggle,
               {description = "toggle floating", group = "client"}),
 
     -- swap position with next/previous client
@@ -206,8 +186,29 @@ clientkeys = gears.table.join(
         {description = "(un)maximize horizontally", group = "client"}),
 
         -- Move client to screen
-    awful.key({ modkey, }, "o", function (c) c:move_to_screen() end,
-        {description = "move to screen", group = "client"})
+    awful.key({ modkey, }, "o", function (c) local cli = client.focus utils.log(c.name) c:move_to_screen() end,
+        {description = "move to screen", group = "client"}),
+
+    -- move floating clients around
+    awful.key({ modkey, }, "Left", function (c) c.x = c.x - 30 end,
+          {description = "move floating client left", group = "client"}),
+    awful.key({ modkey, }, "Right", function (c) c.x = c.x + 30 end,
+          {description = "move floating client right", group = "client"}),
+    awful.key({ modkey, }, "Up", function (c) c.y = c.y - 30 end,
+          {description = "move floating client top", group = "client"}),
+    awful.key({ modkey, }, "Down", function (c) c.y = c.y + 30 end,
+        {description = "move floating client down", group = "client"}),
+
+    -- resize floating clients
+    awful.key({ modkey, "Control", }, "Left", function (c) c.width = c.width - 30 end,
+          {description = "move floating client left", group = "client"}),
+    awful.key({ modkey, "Control", }, "Right", function (c) c.width = c.width + 30 end,
+          {description = "move floating client right", group = "client"}),
+    awful.key({ modkey, "Control",}, "Up", function (c) c.height = c.height - 30 end,
+          {description = "move floating client top", group = "client"}),
+    awful.key({ modkey, "Control", }, "Down", function (c) c.height = c.height + 30 end,
+        {description = "move floating client down", group = "client"})
+
 )
 
 -- client buttons. This will be used in rc.lua when aplying the rule for all clients
