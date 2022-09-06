@@ -33,16 +33,17 @@ awful.screen.connect_for_each_screen(function(s)
     local function get_clients()
         local clients = {}
 
-        -- Get focus history for current tag
-        local s = client.focus.screen;
+        -- Get focused screen
+        local scr = awful.screen.focused();
+
         local idx = 0
-        local c = awful.client.focus.history.get(s, idx)
+        local c = awful.client.focus.history.get(scr, idx)
 
         while c do
             table.insert(clients, c)
 
             idx = idx + 1
-            c = awful.client.focus.history.get(s, idx)
+            c = awful.client.focus.history.get(scr, idx)
         end
 
         -- Minimized clients will not appear in the focus history
@@ -50,8 +51,8 @@ awful.screen.connect_for_each_screen(function(s)
         -- if not already there.
         -- This will preserve the history AND enable you to focus on minimized clients
 
-        local t = s.selected_tag
-        local all = client.get(s)
+        local t = scr.selected_tag
+        local all = client.get(scr)
 
         for i = 1, #all do
             c = all[i]
@@ -87,15 +88,6 @@ awful.screen.connect_for_each_screen(function(s)
         return clients
     end
 
-
-    local timer = gears.timer({
-        single_shot = true,
-        timeout = 5,
-        callback = function()
-            -- alt_tab_container.opacity = 1
-        end,
-    })
-
     -- Variable to store the state of the alt tab
     local index
     -- boolean to check whether alt tab was pressed when no clients were available
@@ -112,15 +104,7 @@ awful.screen.connect_for_each_screen(function(s)
         clients = get_clients()
 
         -- Get the screen in which the popup will appear
-        screen = client.focus.screen
-
-        -- There is a problem tho! Awesome takes a second to redraw the widget after swapping the screen
-        -- so by just changing the screen, the effect generated is the widget appearing top left -> disappearing and suddenly reappearing in the center
-        -- The workaround is a simple timer. Could also be done with a rubato animation
-        -- alt_tab_container.opacity = 0
-        -- timer:again()
-        --
-
+        screen = awful.screen.focused()
 
         no_clients = false
         if #clients == 0 then no_clients = true return end
