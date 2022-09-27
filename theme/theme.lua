@@ -22,20 +22,8 @@ theme.darker_grey   = "#494d64"
 theme.black         = "#303446"
 theme.deep_black    = "#232634"
 
-
--- theme.bg_normal = theme.black
--- theme.bg_focus = theme.deep_black
--- theme.bg_urgent = theme.white
--- theme.bg_minimize = theme.grey
--- theme.bg_systray = theme.black
-
--- theme.fg_normal = theme.white
--- theme.fg_focus = theme.pink
--- theme.fg_urgent = theme.red
--- theme.fg_minimize = theme.light_white
-
 theme.border_width = 1
-theme.border_normal = theme.black
+theme.border_normal = theme.dark_grey
 
 -- Wibar
 theme.wibar_width = 40
